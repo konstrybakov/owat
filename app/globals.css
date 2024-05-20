@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "@radix-ui/colors/sand";
+@import "@radix-ui/colors/sand-alpha";
+@import "@radix-ui/colors/sand-dark";
+@import "@radix-ui/colors/sand-dark-alpha";
+@import "@radix-ui/colors/tomato";
+@import "@radix-ui/colors/tomato-alpha";
+@import "@radix-ui/colors/tomato-dark";
+@import "@radix-ui/colors/tomato-dark-alpha";
+@import "@radix-ui/colors/grass";
+@import "@radix-ui/colors/grass-alpha";
+@import "@radix-ui/colors/grass-dark";
+@import "@radix-ui/colors/grass-dark-alpha";
+@import "@radix-ui/colors/yellow";
+@import "@radix-ui/colors/yellow-alpha";
+@import "@radix-ui/colors/yellow-dark";
+@import "@radix-ui/colors/yellow-dark-alpha";
+@import "@radix-ui/colors/amber";
+@import "@radix-ui/colors/amber-alpha";
+@import "@radix-ui/colors/amber-dark";
+@import "@radix-ui/colors/amber-dark-alpha";
+@import "@radix-ui/colors/sky";
+@import "@radix-ui/colors/sky-alpha";
+@import "@radix-ui/colors/sky-dark";
+@import "@radix-ui/colors/sky-dark-alpha";
+
+:root {
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+  }
+}
+
+body {
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
