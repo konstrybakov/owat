@@ -11,11 +11,14 @@
           "level": "error"
         }
       }
-    }
+    },
+    "ignore": ["node_modules"]
   },
   "javascript": {
     "formatter": {
-      "semicolons": "asNeeded"
+      "semicolons": "asNeeded",
+      "quoteStyle": "single",
+      "arrowParentheses": "asNeeded"
     }
   }
 }
