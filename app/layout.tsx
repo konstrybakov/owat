@@ -1,10 +1,12 @@
-import type { Metadata } from "next"
-import "./globals.css"
-import { FontSans, FontSerif } from "./fonts"
+import { Container, Flex, Theme } from '@radix-ui/themes'
+import type { Metadata } from 'next'
+
+import '@radix-ui/themes/styles.css'
+import { Navigation } from './navigation'
 
 export const metadata: Metadata = {
-  title: "OWAT!",
-  description: "Oh! What a tracker!",
+  title: 'OWAT!',
+  description: 'Oh! What a tracker!',
 }
 
 export default function RootLayout({
@@ -13,8 +15,17 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${FontSerif.variable} ${FontSans.variable}`}>
-      <body>{children}</body>
+    <html lang="en">
+      <body>
+        <Theme accentColor="amber" grayColor="sand" radius="small">
+          <Container>
+            <Flex direction="column" gap="4">
+              <Navigation />
+              {children}
+            </Flex>
+          </Container>
+        </Theme>
+      </body>
     </html>
   )
 }

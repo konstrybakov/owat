@@ -1,0 +1,94 @@
+{
+  "id": "916f74d8-7c78-43ed-8b84-49c9bfc9989a",
+  "prevId": "c0df3832-24c8-48dd-a433-3129d7dc9cfd",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.companies": {
+      "name": "companies",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tracker_url": {
+          "name": "tracker_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tracker_type": {
+          "name": "tracker_type",
+          "type": "tracker_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hiring_platform": {
+          "name": "hiring_platform",
+          "type": "hiring_platform",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "companies_tracker_url_unique": {
+          "name": "companies_tracker_url_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "tracker_url"
+          ]
+        }
+      }
+    }
+  },
+  "enums": {
+    "public.hiring_platform": {
+      "name": "hiring_platform",
+      "schema": "public",
+      "values": [
+        "greenhouse"
+      ]
+    },
+    "public.tracker_type": {
+      "name": "tracker_type",
+      "schema": "public",
+      "values": [
+        "hiring_platform"
+      ]
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
