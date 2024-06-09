@@ -15,6 +15,41 @@
       "when": 1717249661243,
       "tag": "0001_deep_drax",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1717482293942,
+      "tag": "0002_cynical_shatterstar",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1717746338609,
+      "tag": "0003_keen_captain_marvel",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1717929356761,
+      "tag": "0004_modern_norrin_radd",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1717929384279,
+      "tag": "0005_smart_carnage",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1717929473056,
+      "tag": "0006_marvelous_rumiko_fujikawa",
+      "breakpoints": true
     }
   ]
 }

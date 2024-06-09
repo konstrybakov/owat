@@ -1,6 +1,8 @@
-import { eq } from 'drizzle-orm'
+// TODO: split this file
+
+import { and, eq, notInArray, sql } from 'drizzle-orm'
 import { db } from './db'
-import { type InsertCompany, companies } from './schema'
+import { type InsertCompany, type InsertJob, companies, jobs } from './schema'
 
 export const queryCreateCompany = async (company: InsertCompany) => {
   const result = await db
@@ -43,3 +45,57 @@ export const querySelectCompany = async (id: number) => {
 }
 
 export type QuerySelectCompanyResult = ReturnType<typeof querySelectCompany>
+
+export const queryInsertJobs = async (jobList: InsertJob[]) => {
+  const result = await db
+    .insert(jobs)
+    .values(jobList)
+    .onConflictDoUpdate({
+      target: jobs.url,
+      setWhere: sql`jobs.last_updated_at < excluded.last_updated_at`,
+      set: {
+        title: sql`excluded.title`,
+        location: sql`excluded.location`,
+        lastUpdatedAt: sql`excluded.last_updated_at`,
+        content: sql`excluded.content`,
+        departments: sql`excluded.departments`,
+        status: 'open',
+      },
+    })
+
+  return result
+}
+
+export type QueryInsertJobsResult = ReturnType<typeof queryInsertJobs>
+
+export const queryGetJobs = async () => {
+  const result = await db.query.jobs.findMany({
+    with: {
+      company: true,
+    },
+  })
+
+  return result
+}
+
+export type QueryGetJobsResult = ReturnType<typeof queryGetJobs>
+
+export const queryMarkJobsAsClosed = async (
+  companyId: number,
+  openJobs: InsertJob[],
+) => {
+  const result = await db
+    .update(jobs)
+    .set({ status: 'closed' })
+    .where(
+      and(
+        eq(jobs.companyId, companyId),
+        notInArray(
+          jobs.url,
+          openJobs.map(({ url }) => url),
+        ),
+      ),
+    )
+
+  return result
+}

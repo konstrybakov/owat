@@ -1,6 +1,7 @@
 import { PlusIcon } from '@radix-ui/react-icons'
 import { Box, Button, Heading, Section } from '@radix-ui/themes'
 import Link from 'next/link'
+import { JobList } from './job-list'
 
 export default function Home() {
   return (
@@ -19,6 +20,9 @@ export default function Home() {
             </Button>
           </Link>
         </Box>
+      </Section>
+      <Section size="2">
+        <JobList />
       </Section>
     </>
   )
