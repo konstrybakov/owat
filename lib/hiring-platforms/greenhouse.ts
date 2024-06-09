@@ -17,8 +17,10 @@ type GreenhouseJob = {
 }
 
 export class Greenhouse extends HiringPlatform {
+  allowedHosts = ['boards.eu.greenhouse.io', 'boards.greenhouse.io']
+
   async checkURL(): Promise<HiringPlatformName> {
-    if (!this.url.hostname.endsWith('greenhouse.io')) {
+    if (!this.allowedHosts.includes(this.url.host)) {
       throw new Error('[Greenhouse] URL mismatch')
     }
 

@@ -1,7 +1,6 @@
 // TODO: split this file
 
 import { and, eq, notInArray, sql } from 'drizzle-orm'
-import { logger } from '../logger'
 import { db } from './db'
 import { type InsertCompany, type InsertJob, companies, jobs } from './schema'
 
@@ -85,8 +84,6 @@ export const queryMarkJobsAsClosed = async (
   companyId: number,
   openJobs: InsertJob[],
 ) => {
-  logger.debug(openJobs.map(({ url }) => url))
-
   const result = await db
     .update(jobs)
     .set({ status: 'closed' })
