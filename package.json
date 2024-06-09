@@ -13,6 +13,7 @@
     "db:reset": "bun run lib/db/reset.ts | pino-pretty"
   },
   "dependencies": {
+    "@clerk/nextjs": "^5.1.4",
     "@hookform/resolvers": "^3.4.2",
     "@neondatabase/serverless": "^0.9.3",
     "@radix-ui/colors": "^3.0.0",
