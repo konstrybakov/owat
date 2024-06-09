@@ -1,4 +1,11 @@
-import { Container, Flex, Theme } from '@radix-ui/themes'
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
+import { Box, Container, Flex, Section, Theme } from '@radix-ui/themes'
 import type { Metadata } from 'next'
 
 import '@radix-ui/themes/styles.css'
@@ -15,17 +22,35 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <Theme accentColor="amber" grayColor="sand" radius="small">
-          <Container>
-            <Flex direction="column" gap="4">
-              <Navigation />
-              {children}
-            </Flex>
-          </Container>
-        </Theme>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body>
+          <Theme accentColor="amber" grayColor="sand" radius="small">
+            <Section size="1">
+              <Container>
+                <Flex align="center" justify="between">
+                  <Navigation />
+                  <Flex align="center" asChild>
+                    <Box>
+                      <SignedOut>
+                        <SignInButton />
+                      </SignedOut>
+                      <SignedIn>
+                        <UserButton />
+                      </SignedIn>
+                    </Box>
+                  </Flex>
+                </Flex>
+              </Container>
+            </Section>
+            <Container>
+              <Flex direction="column" gap="4">
+                {children}
+              </Flex>
+            </Container>
+          </Theme>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }
