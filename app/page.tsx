@@ -3,7 +3,7 @@ import { Box, Button, Heading, Section } from '@radix-ui/themes'
 import Link from 'next/link'
 import { JobList } from './job-list'
 
-export default async function Home() {
+export default function Home() {
   return (
     <>
       <Section size="2">
