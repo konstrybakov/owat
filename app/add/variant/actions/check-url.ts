@@ -1,14 +1,14 @@
 'use server'
 
 import { querySelectCompanyByTrackerURL } from '@/lib/db/queries'
-import type { HiringPlatform } from '@/lib/db/schema'
-import { hiringPlatforms } from '@/lib/hiring-platforms/hiring-platforms'
+import type { HiringPlatformName } from '@/lib/db/schema'
+import { platformRegistry } from '@/lib/hiring-platforms/registry'
 
 import type { ActionResponse } from '@/lib/types/api'
 
 export const actionCheckURL = async (
   urlString: string,
-): Promise<ActionResponse<HiringPlatform>> => {
+): Promise<ActionResponse<HiringPlatformName>> => {
   try {
     const isDuplicate = Boolean(
       (await querySelectCompanyByTrackerURL(urlString)).length,
@@ -20,11 +20,13 @@ export const actionCheckURL = async (
 
     const url = new URL(urlString)
 
-    const platformCheckPromises = hiringPlatforms.map(Platform => {
+    const platformCheckPromises = []
+
+    for (const Platform of platformRegistry.values()) {
       const platform = new Platform(url)
 
-      return platform.checkURL()
-    })
+      platformCheckPromises.push(platform.checkURL())
+    }
 
     return {
       data: await Promise.any(platformCheckPromises),

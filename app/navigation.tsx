@@ -1,6 +1,7 @@
 'use client'
 
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
+import { Reset, Section } from '@radix-ui/themes'
 import type { Route } from 'next'
 import NextLink, { type LinkProps } from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -22,15 +23,19 @@ const Link: FC<LinkProps<Route> & HTMLProps<HTMLAnchorElement>> = ({
 
 export const Navigation = () => {
   return (
-    <NavigationMenu.Root>
-      <NavigationMenu.List>
-        <NavigationMenu.Item>
-          <Link href="/">Home</Link>
-        </NavigationMenu.Item>
-        <NavigationMenu.Item>
-          <Link href="/companies">Companies</Link>
-        </NavigationMenu.Item>
-      </NavigationMenu.List>
-    </NavigationMenu.Root>
+    <Section asChild>
+      <NavigationMenu.Root>
+        <Reset>
+          <NavigationMenu.List>
+            <NavigationMenu.Item>
+              <Link href="/">Home</Link>
+            </NavigationMenu.Item>
+            <NavigationMenu.Item>
+              <Link href="/companies">Companies</Link>
+            </NavigationMenu.Item>
+          </NavigationMenu.List>
+        </Reset>
+      </NavigationMenu.Root>
+    </Section>
   )
 }
