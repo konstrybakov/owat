@@ -4,7 +4,8 @@ import { createPlatform } from '@/lib/hiring-platforms/registry'
 
 import { logger } from '@/lib/logger'
 import type { NonNullableProperty } from '@/lib/types/utils'
-import { StatusCodes } from 'http-status-codes'
+import { ReasonPhrases, StatusCodes } from 'http-status-codes'
+import { headers } from 'next/headers'
 
 // TODO: Express this through type also, on a lower level
 const isHiringPlatform = (
@@ -12,7 +13,21 @@ const isHiringPlatform = (
 ): company is NonNullableProperty<SelectCompany, 'hiringPlatform'> =>
   company.trackerType === 'hiring_platform'
 
-export const POST = async () => {
+export const GET = async () => {
+  const headerList = headers()
+  const auth = headerList.get('Authorization')
+
+  if (auth !== `Bearer ${process.env.CRON_SECRET}`) {
+    return Response.json(
+      {
+        message: ReasonPhrases.UNAUTHORIZED,
+      },
+      {
+        status: StatusCodes.UNAUTHORIZED,
+      },
+    )
+  }
+
   logger.info('Processing companies and fetching jobs')
 
   try {
