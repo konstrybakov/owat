@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "PORT=4000 next dev | pino-pretty",
     "build": "next build",
+    "build:vercel": "bun db:migrate && next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
