@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "db:generate": "drizzle-kit generate --config drizzle.config.ts",
     "db:migrate": "bun run lib/db/migrate.ts | pino-pretty",
-    "db:reset": "bun run lib/db/reset.ts | pino-pretty"
+    "db:reset": "bun run lib/db/reset.ts | pino-pretty",
+    "prepare": "husky"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.1.4",
@@ -40,6 +41,7 @@
     "@types/react-dom": "^18",
     "dotenv": "^16.4.5",
     "drizzle-kit": "^0.22.1",
+    "husky": "^9.0.11",
     "typescript": "^5"
   }
 }
