@@ -9,7 +9,7 @@ import { Box, Container, Flex, Section, Theme } from '@radix-ui/themes'
 import type { Metadata } from 'next'
 
 import '@radix-ui/themes/styles.css'
-import { Navigation } from './navigation'
+import { Navigation } from './components/nav/navigation'
 
 export const metadata: Metadata = {
   title: 'OWAT!',
@@ -28,7 +28,7 @@ export default function RootLayout({
           <Theme accentColor="amber" grayColor="sand" radius="small">
             <Section size="1">
               <Container>
-                <Flex align="center" justify="between">
+                <Flex height="28px" align="center" justify="between">
                   <Navigation />
                   <Flex align="center" asChild>
                     <Box>

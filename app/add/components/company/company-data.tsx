@@ -6,7 +6,8 @@ import { Box, Button, Flex, Text, TextField } from '@radix-ui/themes'
 import { useAtomValue } from 'jotai'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { platformAtom, trackerURLAtom } from '../state'
+
+import { platformAtom, trackerURLAtom } from '../../state'
 import { actionCreateCompany } from './actions/create-company'
 
 const schema = z.object({

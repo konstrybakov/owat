@@ -1,6 +1,6 @@
 import type { HiringPlatformName } from '@/lib/db/schema'
 import { atom } from 'jotai'
-import type { Variant } from './variant/types'
+import type { Variant } from './components/variant/types'
 
 export const variantAtom = atom<Variant>('url')
 export const platformAtom = atom<HiringPlatformName | null>(null)

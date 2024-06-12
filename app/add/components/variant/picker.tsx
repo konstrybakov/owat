@@ -3,7 +3,7 @@
 import { Flex, RadioCards, Text } from '@radix-ui/themes'
 
 import { useAtom } from 'jotai'
-import { variantAtom } from '../state'
+import { variantAtom } from '../../state'
 import type { Variant } from './types'
 
 export const VariantPicker = () => {

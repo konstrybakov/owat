@@ -14,7 +14,7 @@ import { useAtom, useSetAtom } from 'jotai'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { platformAtom, trackerURLAtom } from '../../state'
+import { platformAtom, trackerURLAtom } from '../../../state'
 import { actionCheckURL } from '../actions/check-url'
 
 const schema = z.object({
