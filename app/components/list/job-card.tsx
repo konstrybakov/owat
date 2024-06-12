@@ -1,4 +1,6 @@
+import { isAdmin } from '@/lib/auth/is-admin'
 import type { QueryGetJobsResult } from '@/lib/db/queries'
+import { type User, currentUser } from '@clerk/nextjs/server'
 import { ExternalLinkIcon } from '@radix-ui/react-icons'
 import {
   AccessibleIcon,
@@ -20,6 +22,8 @@ type JobCardProps = {
 
 // TODO: design, refactor
 export const JobCard = async ({ job }: JobCardProps) => {
+  const user = (await currentUser()) as User
+
   return (
     <Card>
       <Grid columns="2" gap="2">
@@ -54,9 +58,11 @@ export const JobCard = async ({ job }: JobCardProps) => {
             }).format(new Date(job.lastUpdatedAt))}
           </Text>
         </Flex>
-        <Flex align="center" gridColumn="1/-1" gap="2" justify="end">
-          <JobCardActions job={job} />
-        </Flex>
+        {isAdmin(user) && (
+          <Flex align="center" gridColumn="1/-1" gap="2" justify="end">
+            <JobCardActions job={job} />
+          </Flex>
+        )}
       </Grid>
     </Card>
   )
