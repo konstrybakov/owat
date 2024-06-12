@@ -3,18 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "PORT=4000 next dev | pino-pretty",
+    "dev": "PORT=4000 next dev",
     "build": "next build",
     "build:vercel": "bun db:migrate && next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "db:generate": "drizzle-kit generate --config drizzle.config.ts",
-    "db:migrate": "bun run lib/db/migrate.ts | pino-pretty",
-    "db:reset": "bun run lib/db/reset.ts | pino-pretty",
+    "db:migrate": "bun run lib/db/migrate.ts",
+    "db:reset": "bun run lib/db/reset.ts",
     "prepare": "husky"
   },
   "dependencies": {
+    "@axiomhq/pino": "^1.0.0-rc.4",
     "@clerk/nextjs": "^5.1.4",
     "@hookform/resolvers": "^3.4.2",
     "@neondatabase/serverless": "^0.9.3",
