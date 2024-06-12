@@ -50,6 +50,13 @@
       "when": 1717929473056,
       "tag": "0006_marvelous_rumiko_fujikawa",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1718042650768,
+      "tag": "0007_ancient_lady_bullseye",
+      "breakpoints": true
     }
   ]
 }

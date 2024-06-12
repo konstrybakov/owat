@@ -1,5 +1,6 @@
 import { relations } from 'drizzle-orm'
 import {
+  boolean,
   integer,
   json,
   pgEnum,
@@ -20,7 +21,10 @@ export const hiringPlatform = pgEnum('hiring_platform', hiringPlatforms)
 export const companies = pgTable('companies', {
   id: serial('id').primaryKey(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
-  updatedAt: timestamp('updated_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at')
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => new Date()),
   name: text('name').notNull(),
   trackerURL: text('tracker_url').notNull().unique(),
   trackerType: trackerType('tracker_type').notNull(),
@@ -41,7 +45,10 @@ export const jobStatus = pgEnum('job_status', jobStatuses)
 export const jobs = pgTable('jobs', {
   id: serial('id').primaryKey(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
-  updatedAt: timestamp('updated_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at')
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => new Date()),
   url: text('url').notNull().unique(),
   title: text('title').notNull(),
   location: text('location').notNull(),
@@ -52,6 +59,10 @@ export const jobs = pgTable('jobs', {
   companyId: integer('company_id')
     .notNull()
     .references(() => companies.id, { onDelete: 'cascade' }),
+  isSeen: boolean('is_seen').notNull().default(false),
+  isHidden: boolean('is_hidden').notNull().default(false),
+  isTopChoice: boolean('is_top_choice').notNull().default(false),
+  isApplied: boolean('is_applied').notNull().default(false),
 })
 
 export type SelectJob = typeof jobs.$inferSelect

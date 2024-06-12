@@ -3,7 +3,7 @@ import { type User, currentUser } from '@clerk/nextjs/server'
 import { PlusIcon } from '@radix-ui/react-icons'
 import { Box, Button, Heading, Section } from '@radix-ui/themes'
 import Link from 'next/link'
-import { JobList } from './job-list'
+import { JobList } from './components/list/job-list'
 
 export default async function Home() {
   // TODO: Fix user management

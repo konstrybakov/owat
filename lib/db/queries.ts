@@ -1,6 +1,6 @@
 // TODO: split this file
 
-import { and, eq, notInArray, sql } from 'drizzle-orm'
+import { and, asc, eq, notInArray, sql } from 'drizzle-orm'
 import { db } from './db'
 import { type InsertCompany, type InsertJob, companies, jobs } from './schema'
 
@@ -62,6 +62,7 @@ export const queryInsertJobs = async (jobList: InsertJob[]) => {
         status: 'open',
       },
     })
+    .returning({ id: jobs.id })
 
   return result
 }
@@ -73,6 +74,7 @@ export const queryGetJobs = async () => {
     with: {
       company: true,
     },
+    orderBy: [asc(jobs.companyId), asc(jobs.title)],
   })
 
   return result
@@ -96,6 +98,7 @@ export const queryMarkJobsAsClosed = async (
         ),
       ),
     )
+    .returning({ id: jobs.id })
 
   return result
 }

@@ -12,6 +12,7 @@ import {
   Text,
 } from '@radix-ui/themes'
 import NextLink from 'next/link'
+import { JobCardActions } from './job-card-actions'
 
 type JobCardProps = {
   job: Awaited<QueryGetJobsResult>[number]
@@ -21,8 +22,8 @@ type JobCardProps = {
 export const JobCard = async ({ job }: JobCardProps) => {
   return (
     <Card>
-      <Grid columns="2" gap="1">
-        <Flex gap="1" align="center">
+      <Grid columns="2" gap="2">
+        <Flex gap="2" align="center">
           <Heading size="3">{job.title} </Heading>
           <Link trim="end" asChild>
             <NextLink target="_blank" href={job.url}>
@@ -52,6 +53,9 @@ export const JobCard = async ({ job }: JobCardProps) => {
               timeStyle: 'short',
             }).format(new Date(job.lastUpdatedAt))}
           </Text>
+        </Flex>
+        <Flex align="center" gridColumn="1/-1" gap="2" justify="end">
+          <JobCardActions job={job} />
         </Flex>
       </Grid>
     </Card>
