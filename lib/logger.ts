@@ -1,3 +1,4 @@
+import '@axiomhq/pino'
 import { type TransportTargetOptions, pino } from 'pino'
 
 const targets: TransportTargetOptions[] = []
