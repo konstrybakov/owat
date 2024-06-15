@@ -15,7 +15,6 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@axiomhq/pino": "^1.0.0-rc.4",
     "@clerk/nextjs": "^5.1.4",
     "@hookform/resolvers": "^3.4.2",
     "@neondatabase/serverless": "^0.9.3",
@@ -29,6 +28,7 @@
     "next": "14.2.3",
     "normalize-url": "^8.0.1",
     "pino": "^9.1.0",
+    "pino-axiom": "^1.0.178",
     "pino-pretty": "^11.1.0",
     "react": "^18",
     "react-dom": "^18",
