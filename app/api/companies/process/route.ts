@@ -28,9 +28,9 @@ export const GET = async () => {
     )
   }
 
-  logger.info('Processing companies and fetching jobs')
-
   try {
+    logger.info('Processing companies and fetching jobs')
+
     const companies = await querySelectAllCompanies()
 
     for (const company of companies) {

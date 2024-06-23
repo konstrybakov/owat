@@ -1,15 +1,12 @@
-import '@axiomhq/pino'
+import '@logtail/pino'
 import { type TransportTargetOptions, pino } from 'pino'
 
 const targets: TransportTargetOptions[] = []
 
 if (process.env.NODE_ENV === 'production') {
   targets.push({
-    target: '@axiomhq/pino',
-    options: {
-      dataset: process.env.AXIOM_DATASET,
-      token: process.env.AXIOM_API_TOKEN,
-    },
+    target: '@logtail/pino',
+    options: { sourceToken: process.env.BETTERSTACK_SOURCE_TOKEN },
   })
 } else {
   targets.push({
