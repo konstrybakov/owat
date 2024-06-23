@@ -1,6 +1,6 @@
 // TODO: split this file
 
-import { and, asc, eq, notInArray, sql } from 'drizzle-orm'
+import { and, asc, eq, notInArray, or, sql } from 'drizzle-orm'
 import { db } from './db'
 import { type InsertCompany, type InsertJob, companies, jobs } from './schema'
 
@@ -69,12 +69,29 @@ export const queryInsertJobs = async (jobList: InsertJob[]) => {
 
 export type QueryInsertJobsResult = ReturnType<typeof queryInsertJobs>
 
-export const queryGetJobs = async () => {
+export type GetJobsFilter = 'new' | 'seen' | 'hidden' | 'topChoice' | 'all'
+
+const filterSettings = {
+  all: undefined,
+  new: and(
+    eq(jobs.isSeen, false),
+    eq(jobs.isHidden, false),
+    eq(jobs.isTopChoice, false),
+  ),
+  seen: eq(jobs.isSeen, true),
+  hidden: eq(jobs.isHidden, true),
+  topChoice: eq(jobs.isTopChoice, true),
+} as const
+
+export const queryGetJobs = async (filters?: GetJobsFilter[]) => {
   const result = await db.query.jobs.findMany({
     with: {
       company: true,
     },
     orderBy: [asc(jobs.companyId), asc(jobs.title)],
+    ...(filters && {
+      where: or(...filters.map(filter => filterSettings[filter])),
+    }),
   })
 
   return result
