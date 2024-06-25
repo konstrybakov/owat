@@ -43,11 +43,13 @@ export default function RootLayout({
                 </Flex>
               </Container>
             </Section>
-            <Container>
-              <Flex direction="column" gap="4">
-                {children}
-              </Flex>
-            </Container>
+            <Section size="1">
+              <Container>
+                <Flex direction="column" gap="4">
+                  {children}
+                </Flex>
+              </Container>
+            </Section>
           </Theme>
         </body>
       </html>

@@ -10,14 +10,13 @@ import {
   Grid,
   Heading,
   Link,
-  Separator,
   Text,
 } from '@radix-ui/themes'
 import NextLink from 'next/link'
 import { JobCardActions } from './job-card-actions'
 
 type JobCardProps = {
-  job: Awaited<QueryGetJobsResult>[number]
+  job: Awaited<QueryGetJobsResult>['data'][number]
 }
 
 // TODO: design, refactor
@@ -26,8 +25,11 @@ export const JobCard = async ({ job }: JobCardProps) => {
 
   return (
     <Card>
-      <Grid columns="2" gap="2">
+      <Grid columns="auto 1fr" rows="repeat(2, minmax(22px, auto))" gap="2">
         <Flex gap="2" align="center">
+          <Text size="2" weight="medium" color="gray">
+            {job.departments.join(' > ')}
+          </Text>
           <Heading size="3">{job.title} </Heading>
           <Link trim="end" asChild>
             <NextLink target="_blank" href={job.url}>
@@ -47,10 +49,6 @@ export const JobCard = async ({ job }: JobCardProps) => {
           {job.company.name}
         </Text>
         <Flex gap="2" justify="end">
-          <Text size="2" weight="medium" color="gray">
-            {job.departments.join(' > ')}
-          </Text>
-          <Separator orientation="vertical" />
           <Text size="2">
             {new Intl.DateTimeFormat('en-UK', {
               dateStyle: 'medium',
