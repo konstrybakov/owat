@@ -2,6 +2,7 @@
 import { TriangleLeftIcon, TriangleRightIcon } from '@radix-ui/react-icons'
 import { Flex, IconButton } from '@radix-ui/themes'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useCallback } from 'react'
 
 type PaginationProps = {
   total: number
@@ -14,13 +15,16 @@ export const Pagination = ({ total }: PaginationProps) => {
   const page = Number(searchParams.get('page') || 1)
   const isLastPage = total <= page * 10
 
-  const createSearchParams = (page: number) => {
-    const newSearchParams = new URLSearchParams(searchParams)
+  const createSearchParams = useCallback(
+    (page: number) => {
+      const newSearchParams = new URLSearchParams(searchParams)
 
-    newSearchParams.set('page', String(page))
+      newSearchParams.set('page', String(page))
 
-    return newSearchParams.toString()
-  }
+      return newSearchParams.toString()
+    },
+    [searchParams],
+  )
 
   const clickHandler = (page: number) => {
     router.push(`${pathname}?${createSearchParams(page)}`)
