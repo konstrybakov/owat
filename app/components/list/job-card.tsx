@@ -16,7 +16,7 @@ import NextLink from 'next/link'
 import { JobCardActions } from './job-card-actions'
 
 type JobCardProps = {
-  job: Awaited<QueryGetJobsResult>[number]
+  job: Awaited<QueryGetJobsResult>['data'][number]
 }
 
 // TODO: design, refactor
