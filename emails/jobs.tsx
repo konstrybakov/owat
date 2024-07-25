@@ -67,14 +67,24 @@ const Jobs = ({
       </Head>
       <main className="md:container mx-auto">
         <h2>✨ New Jobs</h2>
-        {Object.entries(newJobsGrouped).map(([company, jobs]) => (
-          <CompanyJobs key={company} company={company} jobs={jobs} />
-        ))}
+
+        {newJobs.length ? (
+          Object.entries(newJobsGrouped).map(([company, jobs]) => (
+            <CompanyJobs key={company} company={company} jobs={jobs} />
+          ))
+        ) : (
+          <p>💦 No new jobs found</p>
+        )}
 
         <h2>♥️ Saved Jobs</h2>
-        {Object.entries(savedJobsGrouped).map(([company, jobs]) => (
-          <CompanyJobs key={company} company={company} jobs={jobs} />
-        ))}
+
+        {savedJobs.length ? (
+          Object.entries(savedJobsGrouped).map(([company, jobs]) => (
+            <CompanyJobs key={company} company={company} jobs={jobs} />
+          ))
+        ) : (
+          <p>😭 No saved jobs found</p>
+        )}
       </main>
     </Tailwind>
   )
