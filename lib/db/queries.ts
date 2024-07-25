@@ -1,6 +1,6 @@
 // TODO: split this file
 
-import { and, asc, count, eq, notInArray, or, sql } from 'drizzle-orm'
+import { and, asc, count, desc, eq, notInArray, or, sql } from 'drizzle-orm'
 import { db } from './db'
 import { type InsertCompany, type InsertJob, companies, jobs } from './schema'
 
@@ -77,16 +77,17 @@ const filterSettings = {
     eq(jobs.isSeen, false),
     eq(jobs.isHidden, false),
     eq(jobs.isTopChoice, false),
+    eq(jobs.status, 'open'),
   ),
   seen: eq(jobs.isSeen, true),
   hidden: eq(jobs.isHidden, true),
-  topChoice: eq(jobs.isTopChoice, true),
+  topChoice: and(eq(jobs.isTopChoice, true), eq(jobs.status, 'open')),
 } as const
 
 // TODO: dynamic limit
 export const LIMIT = 10
 
-export const queryGetJobs = async (filters: GetJobsFilter[], page: number) => {
+export const queryGetJobs = async (filters: GetJobsFilter[], page?: number) => {
   const filterExpression = or(...filters.map(filter => filterSettings[filter]))
 
   const [total] = await db
@@ -94,14 +95,18 @@ export const queryGetJobs = async (filters: GetJobsFilter[], page: number) => {
     .from(jobs)
     .where(filterExpression)
 
+  const pagination = page && {
+    offset: (page - 1) * LIMIT,
+    limit: LIMIT,
+  }
+
   const data = await db.query.jobs.findMany({
     with: {
       company: true,
     },
-    orderBy: [asc(jobs.companyId), asc(jobs.title)],
+    orderBy: [asc(jobs.companyId), desc(jobs.lastUpdatedAt)],
     where: filterExpression,
-    offset: (page - 1) * LIMIT,
-    limit: LIMIT,
+    ...pagination,
   })
 
   const result = {
