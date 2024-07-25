@@ -64,6 +64,8 @@ export const GET = async () => {
   } finally {
     logger.info('Finished `send-email` cron job')
 
-    logger.flush()
+    logger.flush(() => {
+      console.log('Logger flushed')
+    })
   }
 }
