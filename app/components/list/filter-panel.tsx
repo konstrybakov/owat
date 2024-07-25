@@ -44,6 +44,8 @@ export const FilterPanel = () => {
         newSearchParams.append('filter', filter)
       }
 
+      newSearchParams.delete('page')
+
       return newSearchParams.toString()
     },
     [searchParams],
