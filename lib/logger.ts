@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-const transport = pino.transport({
+export const transport = pino.transport({
   targets,
 })
 

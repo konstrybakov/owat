@@ -1,6 +1,6 @@
 import Jobs from '@/emails/jobs'
 import { queryGetJobs } from '@/lib/db/queries'
-import { logger } from '@/lib/logger'
+import { logger, transport } from '@/lib/logger'
 import { render } from '@react-email/render'
 import { ReasonPhrases, StatusCodes } from 'http-status-codes'
 import { headers } from 'next/headers'
@@ -61,5 +61,9 @@ export const GET = async () => {
       { error },
       { status: StatusCodes.INTERNAL_SERVER_ERROR },
     )
+  } finally {
+    logger.info('Finished `send-email` cron job')
+
+    await transport.close()
   }
 }
