@@ -8,6 +8,10 @@ import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
+const delay = (ms: number) => {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 export const GET = async () => {
   try {
     logger.info('Starting `send-email` cron job')
@@ -67,5 +71,7 @@ export const GET = async () => {
     logger.flush(() => {
       console.log('Logger flushed')
     })
+
+    await delay(1000)
   }
 }
