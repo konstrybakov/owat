@@ -1,7 +1,6 @@
 import type { QueryGetJobsResult } from '@/lib/db/queries'
 import { Font, Head, Tailwind } from '@react-email/components'
 import { tailwindConfig } from './config/tailwind'
-import { mockJobsList } from './mock/jobs-list'
 
 const CompanyJobs = ({
   company,
@@ -50,8 +49,8 @@ const Jobs = ({
   newJobs: Awaited<QueryGetJobsResult>['data']
   savedJobs: Awaited<QueryGetJobsResult>['data']
 }) => {
-  const newJobsGrouped = groupJobsByCompany(newJobs || mockJobsList)
-  const savedJobsGrouped = groupJobsByCompany(savedJobs || mockJobsList)
+  const newJobsGrouped = groupJobsByCompany(newJobs)
+  const savedJobsGrouped = groupJobsByCompany(savedJobs)
 
   return (
     <Tailwind config={tailwindConfig}>
