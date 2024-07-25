@@ -64,6 +64,6 @@ export const GET = async () => {
   } finally {
     logger.info('Finished `send-email` cron job')
 
-    await transport.close()
+    await transport.end()
   }
 }
