@@ -1,6 +1,6 @@
 import Jobs from '@/emails/jobs'
 import { queryGetJobs } from '@/lib/db/queries'
-import { logger, transport } from '@/lib/logger'
+import { logger } from '@/lib/logger'
 import { render } from '@react-email/render'
 import { ReasonPhrases, StatusCodes } from 'http-status-codes'
 import { headers } from 'next/headers'
@@ -64,6 +64,6 @@ export const GET = async () => {
   } finally {
     logger.info('Finished `send-email` cron job')
 
-    await transport.end()
+    logger.flush()
   }
 }
