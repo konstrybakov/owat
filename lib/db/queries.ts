@@ -60,16 +60,30 @@ export const queryInsertJobs = async (jobList: InsertJob[]) => {
         content: sql`excluded.content`,
         departments: sql`excluded.departments`,
         status: 'open',
+        salaryMin: sql`excluded.salary_min`,
+        salaryMax: sql`excluded.salary_max`,
+        equityMin: sql`excluded.equity_min`,
+        equityMax: sql`excluded.equity_max`,
+        compensationCurrencyCode: sql`excluded.currency_code`,
+        compensationInterval: sql`excluded.compensation_interval`,
+        compensationSummary: sql`excluded.compensation_summary`,
+        isRemote: sql`excluded.is_remote`,
       },
     })
-    .returning({ id: jobs.id })
+    .returning({ id: jobs.id, url: jobs.url })
 
   return result
 }
 
 export type QueryInsertJobsResult = ReturnType<typeof queryInsertJobs>
 
-export type GetJobsFilter = 'new' | 'seen' | 'hidden' | 'topChoice' | 'all'
+export type GetJobsFilter =
+  | 'new'
+  | 'seen'
+  | 'hidden'
+  | 'topChoice'
+  | 'applied'
+  | 'all'
 
 const filterSettings = {
   all: undefined,
@@ -77,10 +91,12 @@ const filterSettings = {
     eq(jobs.isSeen, false),
     eq(jobs.isHidden, false),
     eq(jobs.isTopChoice, false),
+    eq(jobs.isApplied, false),
     eq(jobs.status, 'open'),
   ),
   seen: eq(jobs.isSeen, true),
   hidden: eq(jobs.isHidden, true),
+  applied: eq(jobs.isApplied, true),
   topChoice: and(eq(jobs.isTopChoice, true), eq(jobs.status, 'open')),
 } as const
 

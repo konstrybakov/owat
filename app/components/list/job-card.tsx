@@ -56,11 +56,16 @@ export const JobCard = async ({ job }: JobCardProps) => {
             }).format(new Date(job.lastUpdatedAt))}
           </Text>
         </Flex>
-        {isAdmin(user) && (
-          <Flex align="center" gridColumn="1/-1" gap="2" justify="end">
-            <JobCardActions job={job} />
-          </Flex>
-        )}
+        <Flex justify="between" gridColumn="1/-1">
+          <Text size="2" color="gray">
+            {job.compensationSummary}
+          </Text>
+          {isAdmin(user) && (
+            <Flex align="center" gap="2" justify="between">
+              <JobCardActions job={job} />
+            </Flex>
+          )}
+        </Flex>
       </Grid>
     </Card>
   )

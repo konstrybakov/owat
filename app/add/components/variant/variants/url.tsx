@@ -1,3 +1,4 @@
+import type { HiringPlatformName } from '@/lib/db/schema'
 import { normalizeURL } from '@/lib/utils/normalize-url'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CheckIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons'
@@ -20,6 +21,11 @@ import { actionCheckURL } from '../actions/check-url'
 const schema = z.object({
   url: z.string().min(1, 'URL must not be empty').url(),
 })
+
+const platformLogo: Record<HiringPlatformName, string> = {
+  ashby: 'ashby.png',
+  greenhouse: 'greenhouse.svg',
+}
 
 type FormType = z.infer<typeof schema>
 
@@ -104,7 +110,7 @@ export const VariantURL = () => {
             <Card>
               <Flex gap="3" align="center">
                 <Image
-                  src={`/hiring-platforms/${platform.toLowerCase()}.svg`}
+                  src={`/hiring-platforms/${platformLogo[platform]}`}
                   alt={`${platform} logo`}
                   width="32"
                   height="32"

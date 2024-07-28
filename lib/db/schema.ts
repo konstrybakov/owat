@@ -3,6 +3,7 @@ import {
   boolean,
   integer,
   json,
+  numeric,
   pgEnum,
   pgTable,
   serial,
@@ -14,7 +15,7 @@ const trackerTypes = ['hiring_platform'] as const
 export type TrackerType = (typeof trackerTypes)[number]
 export const trackerType = pgEnum('tracker_type', trackerTypes)
 
-const hiringPlatforms = ['greenhouse'] as const
+const hiringPlatforms = ['greenhouse', 'ashby'] as const
 export type HiringPlatformName = (typeof hiringPlatforms)[number]
 export const hiringPlatform = pgEnum('hiring_platform', hiringPlatforms)
 
@@ -63,6 +64,14 @@ export const jobs = pgTable('jobs', {
   isHidden: boolean('is_hidden').notNull().default(false),
   isTopChoice: boolean('is_top_choice').notNull().default(false),
   isApplied: boolean('is_applied').notNull().default(false),
+  isRemote: boolean('is_remote'),
+  compensationCurrencyCode: text('currency_code'),
+  compensationInterval: text('compensation_interval'),
+  compensationSummary: text('compensation_summary'),
+  salaryMin: numeric('salary_min', { precision: 10, scale: 3 }),
+  salaryMax: numeric('salary_max', { precision: 10, scale: 3 }),
+  equityMin: numeric('equity_min', { precision: 10, scale: 3 }),
+  equityMax: numeric('equity_max', { precision: 10, scale: 3 }),
 })
 
 export type SelectJob = typeof jobs.$inferSelect
