@@ -4,6 +4,7 @@ import { createPlatform } from '@/lib/hiring-platforms/registry'
 
 import { logger } from '@/lib/logger'
 import type { NonNullableProperty } from '@/lib/types/utils'
+import { waitFor } from '@/lib/utils/wait-for'
 import { ReasonPhrases, StatusCodes } from 'http-status-codes'
 import { headers } from 'next/headers'
 
@@ -77,5 +78,11 @@ export const GET = async () => {
         status: StatusCodes.INTERNAL_SERVER_ERROR,
       },
     )
+  } finally {
+    logger.info('Finished `job-processing` cron job')
+    logger.flush()
+
+    // TODO: vercel edge functions finish too quick, before the logger flushes
+    await waitFor(1000)
   }
 }

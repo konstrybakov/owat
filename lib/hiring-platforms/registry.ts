@@ -1,4 +1,5 @@
 import type { HiringPlatformName } from '../db/schema'
+import { Ashby } from './ashby'
 import type { HiringPlatform } from './base'
 import { Greenhouse } from './greenhouse'
 
@@ -15,6 +16,7 @@ const registerPlatform = (
 ) => platformRegistry.set(name, platform)
 
 registerPlatform('greenhouse', Greenhouse)
+registerPlatform('ashby', Ashby)
 
 export const createPlatform = (
   name: HiringPlatformName,

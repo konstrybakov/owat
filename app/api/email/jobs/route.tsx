@@ -1,16 +1,13 @@
 import Jobs from '@/emails/jobs'
 import { queryGetJobs } from '@/lib/db/queries'
 import { logger } from '@/lib/logger'
+import { waitFor } from '@/lib/utils/wait-for'
 import { render } from '@react-email/render'
 import { ReasonPhrases, StatusCodes } from 'http-status-codes'
 import { headers } from 'next/headers'
 import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
-
-const delay = (ms: number) => {
-  return new Promise(resolve => setTimeout(resolve, ms))
-}
 
 export const GET = async () => {
   try {
@@ -67,11 +64,9 @@ export const GET = async () => {
     )
   } finally {
     logger.info('Finished `send-email` cron job')
+    logger.flush()
 
-    logger.flush(() => {
-      console.log('Logger flushed')
-    })
-
-    await delay(1000)
+    // TODO: vercel edge functions finish too quick, before the logger flushes
+    await waitFor(1000)
   }
 }

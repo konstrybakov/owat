@@ -60,9 +60,17 @@ export const queryInsertJobs = async (jobList: InsertJob[]) => {
         content: sql`excluded.content`,
         departments: sql`excluded.departments`,
         status: 'open',
+        salaryMin: sql`excluded.salary_min`,
+        salaryMax: sql`excluded.salary_max`,
+        equityMin: sql`excluded.equity_min`,
+        equityMax: sql`excluded.equity_max`,
+        compensationCurrencyCode: sql`excluded.currency_code`,
+        compensationInterval: sql`excluded.compensation_interval`,
+        compensationSummary: sql`excluded.compensation_summary`,
+        isRemote: sql`excluded.is_remote`,
       },
     })
-    .returning({ id: jobs.id })
+    .returning({ id: jobs.id, url: jobs.url })
 
   return result
 }
