@@ -7,6 +7,7 @@ import { useAtomValue } from 'jotai'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { useRouter } from 'next/navigation'
 import { platformAtom, trackerURLAtom } from '../../state'
 import { actionCreateCompany } from './actions/create-company'
 
@@ -17,6 +18,7 @@ const schema = z.object({
 type FormType = z.infer<typeof schema>
 
 export const CompanyName = () => {
+  const { push } = useRouter()
   const platform = useAtomValue(platformAtom)
   const trackerURL = useAtomValue(trackerURLAtom)
 
@@ -41,7 +43,7 @@ export const CompanyName = () => {
       trackerType: 'hiring_platform', // TODO: handle this logic properly
     })
 
-    console.log(result)
+    push('/')
   }
 
   return (
