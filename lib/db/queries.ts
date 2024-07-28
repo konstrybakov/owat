@@ -77,7 +77,13 @@ export const queryInsertJobs = async (jobList: InsertJob[]) => {
 
 export type QueryInsertJobsResult = ReturnType<typeof queryInsertJobs>
 
-export type GetJobsFilter = 'new' | 'seen' | 'hidden' | 'topChoice' | 'all'
+export type GetJobsFilter =
+  | 'new'
+  | 'seen'
+  | 'hidden'
+  | 'topChoice'
+  | 'applied'
+  | 'all'
 
 const filterSettings = {
   all: undefined,
@@ -85,10 +91,12 @@ const filterSettings = {
     eq(jobs.isSeen, false),
     eq(jobs.isHidden, false),
     eq(jobs.isTopChoice, false),
+    eq(jobs.isApplied, false),
     eq(jobs.status, 'open'),
   ),
   seen: eq(jobs.isSeen, true),
   hidden: eq(jobs.isHidden, true),
+  applied: eq(jobs.isApplied, true),
   topChoice: and(eq(jobs.isTopChoice, true), eq(jobs.status, 'open')),
 } as const
 
