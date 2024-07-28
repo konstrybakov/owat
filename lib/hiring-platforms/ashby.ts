@@ -120,39 +120,41 @@ export class Ashby extends HiringPlatform {
 
       result.compensationSummary = job.compensation.compensationTierSummary
 
-      const salaryComponent = compensationTier.components.find(
-        component => component.compensationType === 'Salary',
-      )
+      if (compensationTier) {
+        const salaryComponent = compensationTier.components.find(
+          component => component.compensationType === 'Salary',
+        )
 
-      if (salaryComponent) {
-        result.salaryMin =
-          typeof salaryComponent.minValue === 'number'
-            ? String(salaryComponent.minValue)
-            : null
+        if (salaryComponent) {
+          result.salaryMin =
+            typeof salaryComponent.minValue === 'number'
+              ? String(salaryComponent.minValue)
+              : null
 
-        result.salaryMax =
-          typeof salaryComponent.maxValue === 'number'
-            ? String(salaryComponent.maxValue)
-            : null
+          result.salaryMax =
+            typeof salaryComponent.maxValue === 'number'
+              ? String(salaryComponent.maxValue)
+              : null
 
-        result.compensationCurrencyCode = salaryComponent.currencyCode
-        result.compensationInterval = salaryComponent.interval
-      }
+          result.compensationCurrencyCode = salaryComponent.currencyCode
+          result.compensationInterval = salaryComponent.interval
+        }
 
-      const equityComponent = compensationTier.components.find(
-        component => component.compensationType === 'EquityPercentage',
-      )
+        const equityComponent = compensationTier.components.find(
+          component => component.compensationType === 'EquityPercentage',
+        )
 
-      if (equityComponent) {
-        result.equityMin =
-          typeof equityComponent.minValue === 'number'
-            ? String(equityComponent.minValue)
-            : null
+        if (equityComponent) {
+          result.equityMin =
+            typeof equityComponent.minValue === 'number'
+              ? String(equityComponent.minValue)
+              : null
 
-        result.equityMax =
-          typeof equityComponent.maxValue === 'number'
-            ? String(equityComponent.maxValue)
-            : null
+          result.equityMax =
+            typeof equityComponent.maxValue === 'number'
+              ? String(equityComponent.maxValue)
+              : null
+        }
       }
     }
 
