@@ -5,10 +5,7 @@ import { db } from './db'
 import { type InsertCompany, type InsertJob, companies, jobs } from './schema'
 
 export const queryCreateCompany = async (company: InsertCompany) => {
-  const result = await db
-    .insert(companies)
-    .values(company)
-    .returning({ id: companies.id })
+  const result = await db.insert(companies).values(company).returning()
 
   return result
 }
