@@ -9,11 +9,17 @@ const CompanyJobs = ({
   <section className="bg-blue-50 pt-2 p-4 rounded-md">
     <h3 className="mt-2 font-semibold mb-4">{company}</h3>
     {jobs.map(job => (
-      <article key={job.id} className="py-2 px-4 bg-white rounded-md">
+      <article
+        key={job.id}
+        className="py-2 px-4 bg-white rounded-md mb-2 last:mb-0"
+      >
         <h4 className="my-2 font-semibold">{job.title}</h4>
 
         <p className="text-sm text-slate-500">{job.departments.join(', ')}</p>
         <p className="mb-4 text-sm">{job.location}</p>
+        {job.compensationSummary && (
+          <p className="mb-4 text-sm">🤑 {job.compensationSummary}</p>
+        )}
 
         <a
           className="block mb-2 text-brand underline"
