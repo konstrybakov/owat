@@ -1,18 +1,18 @@
 import { Box, Heading, Section, Separator } from '@radix-ui/themes'
 
-import { isAdmin } from '@/lib/auth/is-admin'
-import { type User, currentUser } from '@clerk/nextjs/server'
+import { isAdmin } from '@/lib/utils/is-admin'
 import { Provider } from 'jotai'
 import { redirect } from 'next/navigation'
+import { auth } from '../auth'
 import { CompanyName } from './components/company/company-data'
 import { VariantPicker } from './components/variant/picker'
 import { VariantRenderer } from './components/variant/renderer'
 
 export default async function Add() {
-  const user = (await currentUser()) as User
+  const session = await auth()
 
-  if (!isAdmin(user)) {
-    redirect('/')
+  if (!isAdmin(session?.user)) {
+    return redirect('/')
   }
 
   return (
