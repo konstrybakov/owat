@@ -98,8 +98,10 @@ export class Ashby extends HiringPlatform {
 
     const openJobs = result.jobs.map(job => this.mapJob(job, companyId))
 
-    await queryInsertJobs(openJobs)
-    await queryMarkJobsAsClosed(companyId, openJobs)
+    if (openJobs.length) {
+      await queryInsertJobs(openJobs)
+      await queryMarkJobsAsClosed(companyId, openJobs)
+    }
   }
 
   private mapJob(job: AshbyJob, companyId: SelectCompany['id']): InsertJob {
