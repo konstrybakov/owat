@@ -1,6 +1,7 @@
-import { isAdmin } from '@/lib/auth/is-admin'
 import type { QueryGetJobsResult } from '@/lib/db/queries'
-import { type User, currentUser } from '@clerk/nextjs/server'
+
+import { auth } from '@/app/auth'
+import { isAdmin } from '@/lib/utils/is-admin'
 import { ExternalLinkIcon } from '@radix-ui/react-icons'
 import {
   AccessibleIcon,
@@ -21,12 +22,12 @@ type JobCardProps = {
 
 // TODO: design, refactor
 export const JobCard = async ({ job }: JobCardProps) => {
-  const user = (await currentUser()) as User
+  const session = await auth()
 
   return (
-    <Card>
-      <Grid columns="auto 1fr" rows="repeat(2, minmax(22px, auto))" gap="2">
-        <Flex gap="2" align="center">
+    <Card size="2">
+      <Grid columns="auto 1fr" rows="repeat(3, 24px)" align="center" gap="3">
+        <Flex gap="3" align="center">
           <Text size="2" weight="medium" color="gray">
             {job.departments.join(' > ')}
           </Text>
@@ -48,7 +49,7 @@ export const JobCard = async ({ job }: JobCardProps) => {
         <Text size="2" weight="medium">
           {job.company.name}
         </Text>
-        <Flex gap="2" justify="end">
+        <Flex gap="3" justify="end">
           <Text size="2">
             {new Intl.DateTimeFormat('en-UK', {
               dateStyle: 'medium',
@@ -56,12 +57,12 @@ export const JobCard = async ({ job }: JobCardProps) => {
             }).format(new Date(job.lastUpdatedAt))}
           </Text>
         </Flex>
-        <Flex justify="between" gridColumn="1/-1">
+        <Flex align="center" justify="between" gridColumn="1/-1">
           <Text size="2" color="gray">
             {job.compensationSummary}
           </Text>
-          {isAdmin(user) && (
-            <Flex align="center" gap="2" justify="between">
+          {isAdmin(session?.user) && (
+            <Flex align="center" gap="3" justify="between">
               <JobCardActions job={job} />
             </Flex>
           )}

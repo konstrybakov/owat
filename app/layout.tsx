@@ -1,14 +1,8 @@
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from '@clerk/nextjs'
-import { Box, Container, Flex, Section, Theme } from '@radix-ui/themes'
+import { Container, Flex, Section, Theme } from '@radix-ui/themes'
 import type { Metadata } from 'next'
 
 import '@radix-ui/themes/styles.css'
+
 import { Navigation } from './components/nav/navigation'
 
 export const metadata: Metadata = {
@@ -22,37 +16,25 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body>
-          <Theme accentColor="amber" grayColor="sand" radius="small">
-            <Section size="1">
-              <Container>
-                <Flex height="28px" align="center" justify="between">
-                  <Navigation />
-                  <Flex align="center" asChild>
-                    <Box>
-                      <SignedOut>
-                        <SignInButton />
-                      </SignedOut>
-                      <SignedIn>
-                        <UserButton />
-                      </SignedIn>
-                    </Box>
-                  </Flex>
-                </Flex>
-              </Container>
-            </Section>
-            <Section size="1">
-              <Container>
-                <Flex direction="column" gap="4">
-                  {children}
-                </Flex>
-              </Container>
-            </Section>
-          </Theme>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body>
+        <Theme accentColor="amber" grayColor="sand" radius="small">
+          <Section size="1">
+            <Container>
+              <Flex height="28px" align="center" justify="between">
+                <Navigation />
+              </Flex>
+            </Container>
+          </Section>
+          <Section size="1">
+            <Container>
+              <Flex direction="column" gap="4">
+                {children}
+              </Flex>
+            </Container>
+          </Section>
+        </Theme>
+      </body>
+    </html>
   )
 }
