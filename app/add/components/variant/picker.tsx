@@ -16,16 +16,6 @@ export const VariantPicker = () => {
       defaultValue="url"
       columns={{ initial: '1', sm: '4' }}
     >
-      <RadioCards.Item value="search">
-        <Flex direction="column">
-          <Text trim="start" weight="bold">
-            Name
-          </Text>
-          <Text trim="end">
-            Search for a company by name and select from the results
-          </Text>
-        </Flex>
-      </RadioCards.Item>
       <RadioCards.Item value="url">
         <Flex direction="column">
           <Text weight="bold">URL</Text>
