@@ -5,7 +5,7 @@ import { HiringPlatform } from './base'
 import { type LeverJob, LeverWorkplaceType } from './lever/types'
 
 export class Lever extends HiringPlatform {
-  allowedHosts = ['jobs.lever.co']
+  allowedHosts = ['jobs.lever.co', 'jobs.eu.lever.co']
 
   async checkURL(): Promise<HiringPlatformName> {
     console.log(this.url.host)
