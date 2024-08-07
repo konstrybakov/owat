@@ -15,7 +15,7 @@ const trackerTypes = ['hiring_platform'] as const
 export type TrackerType = (typeof trackerTypes)[number]
 export const trackerType = pgEnum('tracker_type', trackerTypes)
 
-const hiringPlatforms = ['greenhouse', 'ashby'] as const
+const hiringPlatforms = ['greenhouse', 'ashby', 'lever'] as const
 export type HiringPlatformName = (typeof hiringPlatforms)[number]
 export const hiringPlatform = pgEnum('hiring_platform', hiringPlatforms)
 

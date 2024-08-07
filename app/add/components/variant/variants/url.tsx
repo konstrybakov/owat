@@ -25,6 +25,7 @@ const schema = z.object({
 const platformLogo: Record<HiringPlatformName, string> = {
   ashby: 'ashby.png',
   greenhouse: 'greenhouse.svg',
+  lever: 'lever.svg',
 }
 
 type FormType = z.infer<typeof schema>

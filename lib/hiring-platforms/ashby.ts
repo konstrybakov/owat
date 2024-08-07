@@ -1,58 +1,8 @@
 import { queryInsertJobs, queryMarkJobsAsClosed } from '../db/queries'
 import type { HiringPlatformName, InsertJob, SelectCompany } from '../db/schema'
 import { logger } from '../logger'
+import type { AshbyJob } from './ashby/types'
 import { HiringPlatform } from './base'
-
-type AshbyJob = {
-  id: string
-  title: string
-  department: string
-  location: string
-  publishedAt: string
-  isRemote: boolean
-  jobUrl: string
-  descriptionPlain: string
-  compensation?: {
-    compensationTierSummary: string
-    scrapeableCompensationSalarySummary: string
-    compensationTiers: Array<{
-      tierSummary: string
-      components: Array<
-        | {
-            summary: string
-            compensationType: 'Salary'
-            interval: string
-            currencyCode: string
-            minValue: number
-            maxValue: number
-          }
-        | {
-            summary: string
-            compensationType: 'EquityPercentage'
-            interval: string
-            currencyCode: null
-            minValue: number
-            maxValue: number
-          }
-      >
-    }>
-    summaryComponents: Array<
-      | {
-          compensationType: 'Salary'
-          currencyCode: string
-          interval: string
-          minValue: number
-          maxValue: number
-        }
-      | {
-          compensationType: 'EquityPercentage'
-          currencyCode: null
-          minValue: number
-          maxValue: number
-        }
-    >
-  }
-}
 
 export class Ashby extends HiringPlatform {
   allowedHosts = ['jobs.ashbyhq.com']
@@ -62,7 +12,7 @@ export class Ashby extends HiringPlatform {
       throw new Error('[Ashby] URL mismatch')
     }
 
-    const response = await fetch(this.getJobBoardURL())
+    const response = await fetch(this.getJobBoardAPIURL())
 
     if (!response.ok) {
       throw new Error('[Ashby] Job board not found')
@@ -73,10 +23,6 @@ export class Ashby extends HiringPlatform {
 
   private getCompanyToken(): string {
     return this.url.pathname.split('/')[1]
-  }
-
-  private getJobBoardURL(): string {
-    return `https://jobs.ashbyhq.com/${this.getCompanyToken()}`
   }
 
   private getJobBoardAPIURL(): string {

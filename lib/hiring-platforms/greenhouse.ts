@@ -2,19 +2,7 @@ import { queryInsertJobs, queryMarkJobsAsClosed } from '../db/queries'
 import type { HiringPlatformName, InsertJob, SelectCompany } from '../db/schema'
 import { logger } from '../logger'
 import { HiringPlatform } from './base'
-
-type GreenhouseJob = {
-  absolute_url: string
-  location: {
-    name: string
-  }
-  updated_at: string
-  title: string
-  content: string
-  departments: Array<{
-    name: string
-  }>
-}
+import type { GreenhouseJob } from './greenhouse/types'
 
 export class Greenhouse extends HiringPlatform {
   allowedHosts = [
@@ -28,7 +16,7 @@ export class Greenhouse extends HiringPlatform {
       throw new Error('[Greenhouse] URL mismatch')
     }
 
-    const response = await fetch(this.getJobBoardURL())
+    const response = await fetch(this.getJobBoardAPIURL())
 
     if (!response.ok) {
       throw new Error('[Greenhouse] Job board not found')
@@ -39,10 +27,6 @@ export class Greenhouse extends HiringPlatform {
 
   private getCompanyToken(): string {
     return this.url.pathname.split('/')[1]
-  }
-
-  private getJobBoardURL(): string {
-    return `https://boards.greenhouse.io/${this.getCompanyToken()}`
   }
 
   private getJobBoardAPIURL(): string {
