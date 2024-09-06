@@ -23,7 +23,7 @@ export const FilterPanel = () => {
       </SegmentedControl.Item>
       <SegmentedControl.Item value="seen">Seen</SegmentedControl.Item>
       <SegmentedControl.Item value="hidden">Hidden</SegmentedControl.Item>
-      <SegmentedControl.Item value="applied">Applied</SegmentedControl.Item>
+      {/* <SegmentedControl.Item value="applied">Applied</SegmentedControl.Item> */}
       <SegmentedControl.Item value="all">All</SegmentedControl.Item>
     </SegmentedControl.Root>
   )

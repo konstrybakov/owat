@@ -4,7 +4,6 @@ import {
   EyeNoneIcon,
   EyeOpenIcon,
   LightningBoltIcon,
-  RocketIcon,
 } from '@radix-ui/react-icons'
 import { Text } from '@radix-ui/themes'
 import { ActionButton } from './action-button'
@@ -51,14 +50,14 @@ export const JobCardActions = ({ job }: { job: SelectJob }) => {
         icon={<EyeOpenIcon />}
         label="Seen"
       />
-      <ActionButton
+      {/* <ActionButton
         isActive={applied.isActive}
         loading={applied.loading}
         clickHandler={() => applied.clickHandler(job.id)}
         colorActive="pink"
         icon={<RocketIcon />}
         label="Applied"
-      />
+      /> */}
     </>
   )
 }
