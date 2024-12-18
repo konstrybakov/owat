@@ -27,7 +27,7 @@
     "drizzle-orm": "^0.31.0",
     "http-status-codes": "^2.3.0",
     "jotai": "^2.8.1",
-    "next": "14.2.10",
+    "next": "14.2.15",
     "next-auth": "beta",
     "normalize-url": "^8.0.1",
     "pino": "^9.1.0",
